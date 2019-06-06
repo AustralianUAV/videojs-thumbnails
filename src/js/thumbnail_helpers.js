@@ -169,8 +169,7 @@ export default class ThumbnailHelpers {
   }
 
   static updateThumbnailTime(timelineTime, progressControl) {
-    timelineTime.innerHTML = (progressControl.seekBar.mouseTimeDisplay.
-                             el_.attributes['data-current-time'].value);
+    timelineTime.innerHTML = (progressControl.seekBar.mouseTimeDisplay.timeTooltip.el_.textContent);
   }
 
   static getPageMousePositionX(event) {
