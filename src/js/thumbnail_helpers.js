@@ -164,7 +164,7 @@ export default class ThumbnailHelpers {
   }
 
   static getMouseVideoTime(mouseLeftOffset, progressControl, duration) {
-    return Math.floor((mouseLeftOffset - progressControl.el().offsetLeft) /
+    return Math.floor((mouseLeftOffset /*- progressControl.el().offsetLeft*/) /
            progressControl.width() * duration);
   }
 
@@ -241,7 +241,7 @@ export default class ThumbnailHelpers {
 
     const duration = ThumbnailHelpers.getVideoDuration(player);
     const pageXOffset = ThumbnailHelpers.getScrollOffset().x;
-    const progresBarPosition = progressControl.el().
+    const progresBarPosition = progressControl.children()[0].el().
                                getBoundingClientRect();
 
     const progresBarRightOffset = (progresBarPosition.width ||
@@ -251,12 +251,12 @@ export default class ThumbnailHelpers {
     const pageMousePositionX = ThumbnailHelpers.getPageMousePositionX(event);
 
     let mouseLeftOffset = ThumbnailHelpers.findMouseLeftOffset(pageMousePositionX,
-                                                               progressControl,
+                                                               progressControl.children()[0],
                                                                pageXOffset,
                                                                event);
 
     const mouseTime = ThumbnailHelpers.getMouseVideoTime(mouseLeftOffset,
-                                                         progressControl,
+                                                         progressControl.children()[0],
                                                          duration);
 
     const activeThumbnail = ThumbnailHelpers.getActiveThumbnail(thumbnailClips,
@@ -275,6 +275,10 @@ export default class ThumbnailHelpers {
                                                 progresBarRightOffset);
 
     ThumbnailHelpers.updateThumbnailLeftStyle(mouseLeftOffset, thumbnailsHolder);
+
+    //console.log("moveListener timelineTime: " + timelineTime + ", activeThumbnail: " + activeThumbnail);
+    //console.log("pageMousePositionX: " + pageMousePositionX + ", mouseLeftOffset: " + mouseLeftOffset);
+    //console.dir(activeThumbnail);
   }
 
   static upadateOnHover(progressControl,
